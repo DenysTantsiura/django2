@@ -1,0 +1,19 @@
+{% extends "noteapp/base.html" %} <!-- відповідає за вставку блоку content всередину базового шаблону base.html-->
+
+{% block content %}
+<!-- потрібно звертатися до маршруту noteapp:tag :-->
+<form method="POST" action="{% url 'noteapp:tag' %}"> <!--префікс з назвою нашого додатку noteapp і сама назва маршруту tag-->
+    {% csrf_token %} <!--для захисту від міжсайтової підробки запиту. Це обов'язкова вимога до вмісту форми для фреймворку Django-->
+    <div style="padding: 10px">
+        <label>Enter the tag name:
+            {{form.name}} <!--відповідає за поле введення тегу. Тут ми використовуємо форму Django form-->
+        </label>
+        <span>{{ form.errors.name }}</span> <!--буде виведено повідомлення про помилку введення, якщо дані нашої форми form виявляться не валідними-->
+    </div>
+    <div class="grid">
+        <button type="submit">Submit</button>
+        <button type="reset" class="secondary">Reset</button>
+    </div>
+</form>
+
+{% endblock %}
